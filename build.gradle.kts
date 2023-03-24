@@ -24,9 +24,9 @@ dependencies {
 	}
 	implementation("com.amazonaws:aws-lambda-java-core:1.2.2")
 	implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
-	// implementation("com.amazonaws:aws-lambda-java-runtime-interface-client:2.3.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot2:1.9.1")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

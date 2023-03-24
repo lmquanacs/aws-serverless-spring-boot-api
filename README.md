@@ -12,4 +12,7 @@ To complete this guide, you'll need:
 
 - Create Spring Boot Restful API using AWS Lambda and AWS API Gateway.
 - Test locally using AWS provided docker container image.
-- Push images and deploy using terraform.
+- Build/Push images and deploy using terraform.
+
+## License
+This project is licensed under Apache License - see the LICENSE file for details.
