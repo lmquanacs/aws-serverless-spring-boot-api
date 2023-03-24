@@ -1,3 +1,0 @@
-com.amazonaws.lambda.thirdparty.com.fasterxml.jackson.datatype.joda.JodaModule
-com.amazonaws.lambda.thirdparty.com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-com.amazonaws.lambda.thirdparty.com.fasterxml.jackson.datatype.jdk8.Jdk8Module
