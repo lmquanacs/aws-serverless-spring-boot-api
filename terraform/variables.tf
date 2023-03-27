@@ -15,7 +15,7 @@ variable "region" {
 
 variable "imageVersion" {
   description = "Version"
-  default     = "1.0.0"
+  default     = "1.0.2_3"
 }
 
 variable "appName" {

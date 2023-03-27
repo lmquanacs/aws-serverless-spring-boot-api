@@ -6,10 +6,12 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.web.servlet.HandlerAdapter
 import org.springframework.web.servlet.HandlerMapping
+import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 
 @SpringBootApplication
+@EnableWebMvc
 class Application {
 	/*
      * Create required HandlerMapping, to avoid several default HandlerMapping instances being created
@@ -26,6 +28,10 @@ class Application {
 	fun handlerAdapter(): HandlerAdapter {
 		return RequestMappingHandlerAdapter()
 	}
+}
+
+fun main(args: Array<String>) {
+	runApplication<Application>(*args)
 }
 
 

@@ -26,3 +26,5 @@ hs_err_pid*
 **/.terraform.lock.hcl
 
 build
+
+.gradle

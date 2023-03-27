@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.7.9"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
+	id ("com.avast.gradle.docker-compose") version "0.16.11"
 	// id("com.github.johnrengelman.shadow") version "7.1.2"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
@@ -17,7 +18,7 @@ repositories {
 }
 
 dependencies {
-	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	// implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter-web") {
 		// not starting as a webserver
 		exclude(group="org.springframework.boot", module = "spring-boot-starter-tomcat")
@@ -26,6 +27,9 @@ dependencies {
 	implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot2:1.9.1")
+
+	// AWS
+	implementation("aws.sdk.kotlin:dynamodb:0.18.0-beta")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -55,7 +59,11 @@ tasks.jar {
 }
 
 tasks.build {
-	dependsOn("copyRuntimeDependencies")
+	// finalizedBy(tasks.shadowJar)
+	finalizedBy("copyRuntimeDependencies")
 }
 
-
+dockerCompose {
+	file("docker-compose.yml")
+	setProjectName("aws_serverless_spring_boot_api")
+}
