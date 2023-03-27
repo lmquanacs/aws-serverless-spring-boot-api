@@ -22,3 +22,7 @@ variable "appName" {
   description = "Version"
   default     = "aws-serverless-spring-boot-api"
 }
+
+variable "createApiGateway" {
+  default = 1
+}

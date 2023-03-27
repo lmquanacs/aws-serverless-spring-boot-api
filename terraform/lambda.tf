@@ -1,3 +1,22 @@
+# IAM
+data "aws_iam_policy_document" "assume_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "role" {
+  name               = "myrole"
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+}
+
 module "aws-serverless-spring-boot-api-module" {
   source = "terraform-aws-modules/lambda/aws"
 
@@ -5,6 +24,8 @@ module "aws-serverless-spring-boot-api-module" {
   description   = "My demo function"
 
   create_package = false
+
+  lambda_role = aws_iam_role.role.arn
 
   memory_size = 512
 
@@ -17,3 +38,5 @@ module "aws-serverless-spring-boot-api-module" {
 
   depends_on = [null_resource.build_image]
 }
+
+
