@@ -7,11 +7,3 @@ docker buildx build --push \
 --platform=linux/arm64 .
 
 docker buildx imagetools inspect ${REPO_URI}/${APP_NAME}:${APP_VERSION}
-#
-#docker pull ${REPO_URI}/${APP_NAME}:latest
-#
-#docker tag ${REPO_URI}/${APP_NAME}:latest \
-#${REPO_URI}/${APP_NAME}:${APP_VERSION}
-#
-#docker push
-#

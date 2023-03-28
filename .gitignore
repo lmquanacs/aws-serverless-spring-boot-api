@@ -30,3 +30,5 @@ build
 .gradle
 
 local.http
+
+local.info

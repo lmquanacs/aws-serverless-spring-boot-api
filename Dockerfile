@@ -4,7 +4,6 @@ COPY . app/
 WORKDIR app
 RUN ./gradlew build --no-daemon
 
-
 FROM public.ecr.aws/lambda/java:11 as package
 
 # COPY --from=build app/build/libs/*all.jar ${LAMBDA_TASK_ROOT}/lib/

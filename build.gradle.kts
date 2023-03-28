@@ -1,12 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.unbrokendome.gradle.plugins.testsets.dsl.testSets
 
 plugins {
 	id("org.springframework.boot") version "2.7.9"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
 	id ("com.avast.gradle.docker-compose") version "0.16.11"
+	id ("org.unbroken-dome.test-sets") version "4.0.0"
 	// id("com.github.johnrengelman.shadow") version "7.1.2"
-	kotlin("jvm") version "1.6.21"
-	kotlin("plugin.spring") version "1.6.21"
+	kotlin("jvm") version "1.8.10"
+	kotlin("plugin.spring") version "1.8.10"
 }
 
 group = "com.mle"
@@ -16,6 +18,15 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 repositories {
 	mavenCentral()
 }
+
+// Integration test registry
+testSets {
+	create("intTest") {
+		this.dirName = "intTest"
+	}
+}
+
+val intTestImplementation = "intTestImplementation"
 
 dependencies {
 	// implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
@@ -29,9 +40,14 @@ dependencies {
 	implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot2:1.9.1")
 
 	// AWS
-	implementation("aws.sdk.kotlin:dynamodb:0.18.0-beta")
+	implementation("aws.sdk.kotlin:dynamodb:0.19.5-beta")
+	implementation("aws.sdk.kotlin:aws-core-jvm:0.19.5-beta")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	// inteTest
+	intTestImplementation("org.springframework.boot:spring-boot-starter-test")
+	intTestImplementation("io.kotest:kotest-runner-junit5:5.5.5")
 }
 
 tasks.withType<KotlinCompile> {
@@ -41,7 +57,7 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
 	useJUnitPlatform()
 }
 
@@ -66,4 +82,12 @@ tasks.build {
 dockerCompose {
 	file("docker-compose.yml")
 	setProjectName("aws_serverless_spring_boot_api")
+}
+
+tasks.create("createDynamoDbTable", Exec::class) {
+	commandLine("sh", "scripts/create-tables.sh")
+}
+
+tasks.composeUp {
+	finalizedBy("createDynamoDbTable")
 }
