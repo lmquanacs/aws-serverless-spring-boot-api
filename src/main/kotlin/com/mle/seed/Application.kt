@@ -1,22 +1,23 @@
-package com.mle
+package com.mle.seed
 
-import com.mle.handler.StreamLambdaHandler
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.web.servlet.HandlerAdapter
-import org.springframework.web.servlet.HandlerMapping
-import org.springframework.web.servlet.config.annotation.EnableWebMvc
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
+import org.springframework.context.annotation.Primary
+import org.springframework.web.reactive.HandlerAdapter
+import org.springframework.web.reactive.HandlerMapping
+import org.springframework.web.reactive.config.EnableWebFlux
+import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter
+import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping
 
 @SpringBootApplication
-@EnableWebMvc
+@EnableWebFlux
 class Application {
 	/*
      * Create required HandlerMapping, to avoid several default HandlerMapping instances being created
      */
 	@Bean
+	@Primary
 	fun handlerMapping(): HandlerMapping {
 		return RequestMappingHandlerMapping()
 	}

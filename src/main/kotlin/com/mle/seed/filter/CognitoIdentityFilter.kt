@@ -1,4 +1,4 @@
-package com.mle.filter
+package com.mle.seed.filter
 
 import com.amazonaws.serverless.proxy.RequestReader
 import com.amazonaws.serverless.proxy.model.AwsProxyRequestContext
